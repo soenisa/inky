@@ -3,6 +3,7 @@
 import argparse
 from PIL import Image
 from inky.auto import auto
+from inky.what import InkyWHAT
 
 print("""Inky wHAT: Dither image
 
@@ -11,7 +12,7 @@ Converts and displays dithered images on Inky wHAT.
 
 # Set up the inky wHAT display and border colour
 
-inky_display = auto(ask_user=True, verbose=True)
+inky_display = InkyWHAT("black")
 inky_display.set_border(inky_display.WHITE)
 
 # Grab the image argument from the command line
@@ -57,6 +58,9 @@ pal_img = Image.new("P", (1, 1))
 pal_img.putpalette((255, 255, 255, 0, 0, 0, 255, 0, 0) + (0, 0, 0) * 252)
 
 img = img.convert("RGB").quantize(palette=pal_img)
+
+# Rotate the image upside down
+img = img.rotate(180)
 
 # Display the final image on Inky wHAT
 
